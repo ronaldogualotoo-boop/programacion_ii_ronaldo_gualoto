@@ -1,0 +1,329 @@
+# ============================================================
+
+# PROGRAMACIÓN II
+
+# .gitignore general para proyectos y subproyectos
+
+# Python + Django + Odoo
+
+# ============================================================
+
+# ------------------------------------------------------------
+
+# 1. PYTHON - archivos compilados y caché
+
+# ------------------------------------------------------------
+
+**/**pycache**/
+**/*.py[cod]
+**/*$py.class
+**/*.so
+
+# Archivos de optimización
+
+**/.Python
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.pyre/
+**/.hypothesis/
+**/.tox/
+**/.nox/
+
+# ------------------------------------------------------------
+
+# 2. ENTORNOS VIRTUALES
+
+# ------------------------------------------------------------
+
+**/.venv/
+**/venv/
+**/env/
+**/ENV/
+**/.env/
+**/virtualenv/
+**/venv.bak/
+
+# ------------------------------------------------------------
+
+# 3. VARIABLES DE ENTORNO Y CREDENCIALES
+
+# ------------------------------------------------------------
+
+**/.env
+**/.env.*
+**/.env.local
+**/.env.development
+**/.env.test
+**/.env.production
+
+# Permitir plantillas de variables de entorno
+
+!**/.env.example
+!**/.env.template
+
+# ------------------------------------------------------------
+
+# 4. DJANGO
+
+# ------------------------------------------------------------
+
+# Base de datos SQLite
+
+**/db.sqlite3
+**/db.sqlite3-journal
+**/*.sqlite3
+
+# Archivos estáticos generados
+
+**/staticfiles/
+**/static_root/
+**/media/
+
+# Archivos de configuración local
+
+**/local_settings.py
+
+# Django migrations:
+
+# Normalmente se recomienda versionarlas.
+
+# Por eso NO se ignora migrations.
+
+#
+
+# Si algún profesor exige ignorarlas, usar:
+
+# **/migrations/**pycache**/
+
+# !**/migrations/**init**.py
+
+# ------------------------------------------------------------
+
+# 5. ODOO
+
+# ------------------------------------------------------------
+
+# Archivos temporales de Odoo
+
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Logs de Odoo
+
+**/*.log
+**/odoo.log
+**/odoo-server.log
+
+# Configuraciones locales con credenciales
+
+**/odoo.conf
+**/odoo-server.conf
+
+# Si necesitas versionar una configuración de ejemplo:
+
+!**/odoo.conf.example
+!**/odoo-server.conf.example
+
+# Datos generados / filestore
+
+**/filestore/
+**/.local/
+**/data_dir/
+
+# ------------------------------------------------------------
+
+# 6. BASES DE DATOS Y DATOS LOCALES
+
+# ------------------------------------------------------------
+
+# PostgreSQL dumps
+
+**/*.sql
+**/*.sql.gz
+**/*.dump
+**/*.backup
+
+# Excepción para scripts SQL que quieras versionar
+
+!**/scripts/**/*.sql
+!**/sql/**/*.sql
+
+# ------------------------------------------------------------
+
+# 7. ARCHIVOS DE IDE / EDITORES
+
+# ------------------------------------------------------------
+
+# Visual Studio Code
+
+**/.vscode/
+**/*.code-workspace
+
+# JetBrains / PyCharm
+
+**/.idea/
+**/*.iml
+
+# Sublime Text
+
+**/*.sublime-project
+**/*.sublime-workspace
+
+# Eclipse
+
+**/.project
+**/.pydevproject
+
+# ------------------------------------------------------------
+
+# 8. SISTEMA OPERATIVO
+
+# ------------------------------------------------------------
+
+# Windows
+
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+**/$RECYCLE.BIN/
+
+# macOS
+
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+**/.Spotlight-V100
+**/.Trashes
+
+# Linux
+
+**/*~
+**/.directory
+
+# ------------------------------------------------------------
+
+# 9. LOGS Y ARCHIVOS TEMPORALES
+
+# ------------------------------------------------------------
+
+**/*.log
+**/*.tmp
+**/*.temp
+**/*.bak
+**/*.swp
+**/*.swo
+**/*.cache
+
+# ------------------------------------------------------------
+
+# 10. COBERTURA Y PRUEBAS
+
+# ------------------------------------------------------------
+
+**/.coverage
+**/.coverage.*
+**/htmlcov/
+**/.pytest_cache/
+**/coverage.xml
+**/coverage.html
+**/.hypothesis/
+
+# ------------------------------------------------------------
+
+# 11. EMPAQUETADO PYTHON
+
+# ------------------------------------------------------------
+
+**/build/
+**/dist/
+**/*.egg-info/
+**/*.egg
+**/.eggs/
+
+# ------------------------------------------------------------
+
+# 12. DOCUMENTACIÓN GENERADA
+
+# ------------------------------------------------------------
+
+**/_build/
+**/.build/
+
+# ------------------------------------------------------------
+
+# 13. JUPYTER NOTEBOOK
+
+# ------------------------------------------------------------
+
+**/.ipynb_checkpoints/
+
+# ------------------------------------------------------------
+
+# 14. NODE / FRONTEND
+
+# Útil para proyectos Django u Odoo con frontend
+
+# ------------------------------------------------------------
+
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/.pnpm-debug.log*
+
+# Builds de frontend
+
+**/frontend/build/
+**/frontend/dist/
+**/web/dist/
+
+# ------------------------------------------------------------
+
+# 15. ARCHIVOS GENERADOS
+
+# ------------------------------------------------------------
+
+**/*.generated.*
+**/*.orig
+**/*.rej
+
+# ------------------------------------------------------------
+
+# 16. CARPETAS DE DATOS LOCALES
+
+# ------------------------------------------------------------
+
+**/tmp/
+**/temp/
+**/cache/
+**/logs/
+
+# ------------------------------------------------------------
+
+# 17. ARCHIVOS GRANDES / EXPORTACIONES
+
+# ------------------------------------------------------------
+
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.7z
+**/*.rar
+
+# ------------------------------------------------------------
+
+# 18. ARCHIVOS DE RESPALDO
+
+# ------------------------------------------------------------
+
+**/*.old
+**/*.backup
+**/*.save
+
+# ------------------------------------------------------------
+
+# FIN DEL .gitignore
+
+# ============================================================
