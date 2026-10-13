@@ -27,13 +27,12 @@ else:
     print("No tienes suficientes créditos para comprar el repuesto")
 
 
-
 tipo_repuesto = input("Ingresa el tipo de repuesto (motor, ala, escudo): ")
-if tipo_repuesto == "motor" and tipo_repuesto != "ala" and tipo_repuesto != "escudo":
-    print("El repuesto es un motor")
-elif tipo_repuesto == "ala" and tipo_repuesto != "motor" and tipo_repuesto != "escudo":
-    print("El repuesto es un ala")
-elif tipo_repuesto == "escudo" and tipo_repuesto != "motor" and tipo_repuesto != "ala":
-    print("El repuesto es un escudo")
+if tipo_repuesto == "motor" and creditos >= precio_repuesto and tipo_repuesto == "ala":
+    print("Puedes comprar el repuesto y te sobran créditos")
+elif tipo_repuesto == "ala" and creditos >= precio_repuesto:
+    print("Puedes comprar el repuesto y te sobran créditos")
+elif tipo_repuesto == "escudo" and creditos >= precio_repuesto:
+    print("Puedes comprar el repuesto y te sobran créditos")
 else:
     print("Tipo de repuesto no válido")
