@@ -38,9 +38,18 @@ else:
 finally:
     print("Cerrando diagnostico")
 
+def validar_energia(energia):
+    if type(energia) is not int:
+        raise TypeError("La enrgia debe ser un numero entero")
+    if energia < 0 or energia > 100:
+        raise ValueError("La energia debe estar entre 0 y 100")
+    return energia
 
-
-
+try:
+    resultado = validar_energia(150)
+    print("Energia", resultado)
+except (TypeError, ValueError) as error:
+    print("Error:", error)
 
 
 
