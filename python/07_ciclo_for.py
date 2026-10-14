@@ -52,18 +52,16 @@ for pais in paises:
     print(f"País visitado: {pais}")
 
 jedi = {}
-jedi_activo={
-
+jedi_activo = {
     "nombre": "Obi-Wan Kenobi",
     "fuerza": "120",
     "estilo_pelea": "Samurai",
-    "misiones": ["Rescate de la princesa", "Derrotar al lado oscuro"]
+    "misiones": ["Rescate de la princesa", "Derrotar al lado oscuro"],
     "descripcion": {
         "estatura": "1.82 m",
-        "especie": "Humano",    
+        "especie": "Humano"
     }  
-}     
-
+}
 
 
 print(jedi_activo)
