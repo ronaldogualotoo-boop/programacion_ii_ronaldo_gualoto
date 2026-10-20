@@ -13,9 +13,9 @@ class Guerrero:
         aumento = 200
         self.poder += aumento
 
-    def atacar(selt, cantidad):
+    def atacar(self, cantidad):
         danio = self.poder*cantidad
-        print ("Gerrero",self.nombre)
+        print ("Gerrero ",self.nombre)
         print("Daño causado: " , danio)
 
 
@@ -29,6 +29,7 @@ print ("nombre del personaje: ", goku.nombre)
 print ("Poder del personaje: ", goku.poder)
 goku.entrenar()
 print ("poder del personaje: ", goku.poder)
+
 goku.atacar(3)
 
 
