@@ -1,6 +1,6 @@
 # ciclo for
 
-naves=[
+naves = [
     "Caza N-1",
     "Nave real de Naboo",
     "Transporte"
@@ -10,14 +10,14 @@ for nave in naves:
 
 print("Inspección realizada")
 
-rondas = range(1,6)
+rondas = range(1, 6)
 
 print("Tipo de Rondas: ", type(rondas))
 for ronda in rondas:
     print(f"Ronda de vigilancia: {ronda}")
     print(f"Tipo de dato ronda : {type(ronda)}")
 
-driodes = range(1,17,3)
+driodes = range(1, 17, 3)
 
 print("Tipo de Rondas: ", type(driodes))
 for droide in driodes:
@@ -56,16 +56,15 @@ jedi_activo = {
     "nombre": "Obi-Wan Kenobi",
     "fuerza": "120",
     "estilo_pelea": "Samurai",
-    "misiones": ["Rescate de la princesa", "Derrotar al lado oscuro"],
+    "misiones": ["Rescate de la princesa", "Derrotar al lado oscuro"],  # <-- Aquí se agregó la coma que faltaba
     "descripcion": {
         "estatura": "1.82 m",
-        "especie": "Humano"
+        "especie": "Humano",    
     }  
-}
-
+}     
 
 print(jedi_activo)
-nave = dict(nombre="AZ-1", capacidad = 8, turbo_laser=2) 
+nave = dict(nombre="AZ-1", capacidad=8, turbo_laser=2) 
 print(nave)
 
 jedi["nombre"] = "darth vader"
