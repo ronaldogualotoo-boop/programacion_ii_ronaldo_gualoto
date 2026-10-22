@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opéra de Epiclesis — Fontaine Leads Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        furina: {
+                            dark: '#0a1128',
+                            navy: '#101f42',
+                            royal: '#1c3166',
+                            hydro: '#00a8e8',
+                            cyan: '#00ecee',
+                            gold: '#dfb15b',
+                            goldLight: '#f3e5ab',
+                            goldAccent: '#b8860b',
+                            foam: '#e0f7fa'
+                        }
+                    },
+                    fontFamily: {
+                        regal: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Hydro & Royale Styling */
+        body {
+            background: radial-gradient(circle at 50% 0%, #1c3166 0%, #0a1128 70%, #050814 100%);
+            color: #e0f7fa;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Gold metallic borders and glows */
+        .gold-border-gradient {
+            border: 2px solid transparent;
+            background-image: linear-gradient(#101f42, #101f42), linear-gradient(135deg, #dfb15b, #00a8e8, #f3e5ab);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(223, 177, 91, 0.25);
+        }
+
+        .hydro-glow {
+            box-shadow: 0 0 25px rgba(0, 236, 238, 0.3);
+        }
+
+        /* Hydro ripples animated backdrop */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 236, 238, 0.4), rgba(0, 168, 232, 0.1));
+            border: 1px solid rgba(0, 236, 238, 0.5);
+            animation: floatUp 8s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a1128;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dfb15b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00a8e8;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden pb-12">
+
+    <!-- Background Hydro Bubble Particle Generator -->
+    <div id="bubbles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Top Opera Header Navigation -->
+    <header class="relative z-10 border-b border-furina-gold/30 bg-furina-dark/80 backdrop-blur-md sticky top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-full border-2 border-furina-gold flex items-center justify-center bg-gradient-to-tr from-furina-royal to-furina-navy gold-glow">
+                    <i class="fa-solid fa-crown text-furina-gold text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-regal text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-furina-goldLight via-furina-gold to-furina-cyan">
+                        OPÉRA DE EPICLESIS
+                    </h1>
+                    <p class="text-xs text-furina-cyan tracking-widest uppercase">Gestionnaire de Leads — TaskFlow</p>
+                </div>
+            </div>
+
+            <!-- User Badge / Django Context Placeholder -->
+            <div class="flex items-center space-x-6">
+                <div class="hidden sm:flex items-center space-x-3 bg-furina-navy/90 border border-furina-gold/40 px-4 py-2 rounded-full shadow-inner">
+                    <div class="w-8 h-8 rounded-full bg-furina-royal border border-furina-cyan flex items-center justify-center">
+                        <i class="fa-solid fa-droplet text-furina-cyan text-sm"></i>
+                    </div>
+                    <span class="text-sm font-medium text-furina-goldLight">
+                        <!-- Django Variable Support: {{ user.username|default:"Lady Furina" }} -->
+                        {{ user.username|default:"Lady Furina" }}
+                    </span>
+                    <span class="bg-furina-gold/20 text-furina-gold text-xs px-2 py-0.5 rounded border border-furina-gold/40 font-regal">
+                        Archon
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+
+        <!-- Hero Stage Banner -->
+        <div class="relative rounded-2xl overflow-hidden p-8 mb-8 gold-border-gradient shadow-2xl">
+            <div class="absolute inset-0 bg-gradient-to-r from-furina-navy via-furina-royal/80 to-transparent z-0"></div>
+            
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-furina-cyan/10 border border-furina-cyan/40 px-3 py-1 rounded-full text-furina-cyan text-xs font-semibold uppercase tracking-widest mb-3">
+                        <i class="fa-solid fa-masks-theater"></i> Scene {{ scene_id|default:"I" }}: High Court of Fontaine
+                    </div>
+                    <h2 class="font-regal text-3xl sm:text-4xl font-extrabold text-white tracking-wide">
+                        {{ titulo|default:"Tribunal de Clientes y Leads" }}
+                    </h2>
+                    <p class="mt-2 text-furina-foam/80 max-w-2xl text-sm sm:text-base">
+                        {{ mensaje|default:"Supervisa, organiza y adjudica todos los registros asignados a la App TaskFlow bajo la majestuosa dirección hydro." }}
+                    </p>
+                </div>
+
+                <!-- Quick Action Button -->
+                <button onclick="openModal()" class="group relative px-6 py-3 rounded-xl bg-gradient-to-r from-furina-gold to-furina-goldAccent text-furina-dark font-bold font-regal tracking-wider hover:brightness-125 transition-all shadow-lg hover:shadow-furina-gold/50 flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-lg"></i>
+                    <span>Nouveau Lead</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Metrics Dashboard -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <!-- Metric 1 -->
+            <div class="bg-furina-navy/70 border border-furina-gold/30 rounded-xl p-5 backdrop-blur-md hover:border-furina-cyan transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-furina-goldLight uppercase tracking-wider">Total Registros</span>
+                    <i class="fa-solid fa-users text-furina-cyan text-xl"></i>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold font-regal text-white">{{ total_leads|default:"24" }}</span>
+                    <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-arrow-up"></i> +12%</span>
+                </div>
+            </div>
+
+            <!-- Metric 2 -->
+            <div class="bg-furina-navy/70 border border-furina-gold/30 rounded-xl p-5 backdrop-blur-md hover:border-furina-cyan transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-furina-goldLight uppercase tracking-wider">Prioridad Alta</span>
+                    <i class="fa-solid fa-bolt text-furina-gold text-xl"></i>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold font-regal text-furina-gold">{{ high_priority|default:"8" }}</span>
+                    <span class="text-xs text-furina-cyan">Revisión requerida</span>
+                </div>
+            </div>
+
+            <!-- Metric 3 -->
+            <div class="bg-furina-navy/70 border border-furina-gold/30 rounded-xl p-5 backdrop-blur-md hover:border-furina-cyan transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-furina-goldLight uppercase tracking-wider">Aprobación Hydro</span>
+                    <i class="fa-solid fa-water text-furina-cyan text-xl"></i>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold font-regal text-white">88.5%</span>
+                    <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-check"></i> Activos</span>
+                </div>
+            </div>
+
+            <!-- Metric 4 -->
+            <div class="bg-furina-navy/70 border border-furina-gold/30 rounded-xl p-5 backdrop-blur-md hover:border-furina-cyan transition-all">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-furina-goldLight uppercase tracking-wider">Audience Energy</span>
+                    <i class="fa-solid fa-wand-magic-sparkles text-furina-goldLight text-xl"></i>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-3xl font-bold font-regal text-furina-cyan">MAX</span>
+                    <span class="text-xs text-furina-gold">Indemnite Mécanique</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls: Search & Filter Bar -->
+        <div class="bg-furina-navy/80 border border-furina-royal/60 rounded-xl p-4 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between backdrop-blur-md">
+            
+            <!-- Search -->
+            <div class="relative w-full md:w-96">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-furina-cyan"></i>
+                <input type="text" id="searchInput" onkeyup="filterLeads()" placeholder="Buscar leads o asignados..." 
+                    class="w-full pl-10 pr-4 py-2 bg-furina-dark/80 border border-furina-gold/30 rounded-lg text-sm text-white placeholder-furina-foam/50 focus:outline-none focus:border-furina-cyan transition-all">
+            </div>
+
+            <!-- Filters & Buttons -->
+            <div class="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                <button onclick="filterStatus('all')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-furina-royal border border-furina-cyan text-white hover:bg-furina-cyan hover:text-furina-dark transition-all">
+                    Todos
+                </button>
+                <button onclick="filterStatus('pendiente')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-furina-dark border border-furina-gold/30 text-furina-gold hover:border-furina-gold transition-all">
+                    Pendientes
+                </button>
+                <button onclick="filterStatus('completado')" class="px-4 py-2 rounded-lg text-xs font-semibold bg-furina-dark border border-furina-cyan/30 text-furina-cyan hover:border-furina-cyan transition-all">
+                    Completados
+                </button>
+            </div>
+        </div>
+
+        <!-- Dynamic Leads Grid / List -->
+        <div id="leadsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1 -->
+            <div class="lead-card bg-furina-navy/60 border border-furina-gold/30 hover:border-furina-cyan rounded-xl p-6 relative transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-furina-royal" data-status="completado" data-name="Francisco Higuera">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-furina-royal border border-furina-gold flex items-center justify-center font-regal font-bold text-furina-gold">
+                            FH
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Francisco Higuera</h3>
+                            <p class="text-xs text-furina-cyan">Docente / Ingeniero</p>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                        Completado
+                    </span>
+                </div>
+                <p class="text-xs text-furina-foam/70 mb-4 line-clamp-2">
+                    Configuración e integración de endpoints en Django para rutas dinámicas de TaskFlow.
+                </p>
+                <div class="flex items-center justify-between pt-4 border-t border-furina-royal/50 text-xs text-furina-goldLight">
+                    <span><i class="fa-regular fa-calendar-check mr-1 text-furina-cyan"></i> 21 Oct 2026</span>
+                    <span class="font-regal text-furina-gold font-bold"><i class="fa-solid fa-droplet text-furina-cyan"></i> Prioridad Alta</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="lead-card bg-furina-navy/60 border border-furina-gold/30 hover:border-furina-cyan rounded-xl p-6 relative transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-furina-royal" data-status="pendiente" data-name="Ronaldo Gualoto">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-furina-royal border border-furina-gold flex items-center justify-center font-regal font-bold text-furina-gold">
+                            RG
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Ronaldo Gualoto</h3>
+                            <p class="text-xs text-furina-cyan">Desarrollador Lead</p>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-furina-gold/20 text-furina-gold border border-furina-gold/40">
+                        Pendiente
+                    </span>
+                </div>
+                <p class="text-xs text-furina-foam/70 mb-4 line-clamp-2">
+                    Revisión de templates HTML y vinculación con views.py para la entrega del proyecto.
+                </p>
+                <div class="flex items-center justify-between pt-4 border-t border-furina-royal/50 text-xs text-furina-goldLight">
+                    <span><i class="fa-regular fa-calendar mr-1 text-furina-cyan"></i> Hoy</span>
+                    <span class="font-regal text-furina-cyan font-bold"><i class="fa-solid fa-droplet"></i> Hydro Court</span>
+                </div>
+            </div>
+
+            <!-- Card 3 (Django Dynamic Placeholder Example) -->
+            <div class="lead-card bg-furina-navy/60 border border-furina-gold/30 hover:border-furina-cyan rounded-xl p-6 relative transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-furina-royal" data-status="pendiente" data-name="Neuvillette Fontaine">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-furina-royal border border-furina-gold flex items-center justify-center font-regal font-bold text-furina-gold">
+                            NF
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Juez Neuvillette</h3>
+                            <p class="text-xs text-furina-cyan">Iudex de Fontaine</p>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-furina-gold/20 text-furina-gold border border-furina-gold/40">
+                        Pendiente
+                    </span>
+                </div>
+                <p class="text-xs text-furina-foam/70 mb-4 line-clamp-2">
+                    Verificación final de los veredictos de prueba y cálculo de triángulo en `base-triangulo`.
+                </p>
+                <div class="flex items-center justify-between pt-4 border-t border-furina-royal/50 text-xs text-furina-goldLight">
+                    <span><i class="fa-regular fa-clock mr-1 text-furina-cyan"></i> En proceso</span>
+                    <span class="font-regal text-furina-gold font-bold"><i class="fa-solid fa-crown text-furina-gold"></i> Máximo</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center border-t border-furina-gold/20 pt-8 text-xs text-furina-foam/60">
+            <p class="font-regal tracking-widest text-furina-goldLight">OPÉRA DE EPICLESIS • TASKFLOW SYSTEM</p>
+            <p class="mt-1">Inspirado en Lady Furina — Fontaine Hydro Aesthetics</p>
+        </footer>
+
+    </main>
+
+    <!-- Modal Form for Nouveau Lead -->
+    <div id="modalNewLead" class="fixed inset-0 bg-furina-dark/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-furina-navy border-2 border-furina-gold rounded-2xl max-w-md w-full p-6 gold-glow relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-furina-foam hover:text-furina-cyan text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-regal text-xl font-bold text-furina-gold mb-4">Registrar Nuevo Lead</h3>
+            
+            <form onsubmit="addLead(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-furina-goldLight mb-1">Nombre Completo</label>
+                    <input type="text" id="inputName" required placeholder="Ej. Navia Caspar" 
+                        class="w-full px-3 py-2 bg-furina-dark border border-furina-royal rounded-lg text-sm text-white focus:outline-none focus:border-furina-cyan">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-furina-goldLight mb-1">Cargo / Título</label>
+                    <input type="text" id="inputRole" required placeholder="Ej. Presidenta de Spina di Rosula" 
+                        class="w-full px-3 py-2 bg-furina-dark border border-furina-royal rounded-lg text-sm text-white focus:outline-none focus:border-furina-cyan">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-furina-goldLight mb-1">Descripción</label>
+                    <textarea id="inputDesc" rows="3" required placeholder="Detalles del requerimiento..." 
+                        class="w-full px-3 py-2 bg-furina-dark border border-furina-royal rounded-lg text-sm text-white focus:outline-none focus:border-furina-cyan"></textarea>
+                </div>
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg text-xs font-bold bg-furina-royal text-white">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-lg text-xs font-bold bg-furina-gold text-furina-dark hover:brightness-110">Guardar Lead</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Generate Hydro Background Bubbles dynamically
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const size = Math.random() * 40 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 6 + 6}s`;
+                bubble.style.animationDelay = `${Math.random() * 4}s`;
+                container.appendChild(bubble);
+            }
+        }
+        createBubbles();
+
+        // Search Filter Logic
+        function filterLeads() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.lead-card');
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                const text = card.innerText.toLowerCase();
+                if (name.includes(query) || text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Status Filter Logic
+        function filterStatus(status) {
+            const cards = document.querySelectorAll('.lead-card');
+            cards.forEach(card => {
+                if (status === 'all' || card.getAttribute('data-status') === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Handlers
+        function openModal() {
+            document.getElementById('modalNewLead').classList.remove('hidden');
+        }
+        function closeModal() {
+            document.getElementById('modalNewLead').classList.add('hidden');
+        }
+
+        // Add Lead Dynamically (Front-end demo)
+        function addLead(event) {
+            event.preventDefault();
+            const name = document.getElementById('inputName').value;
+            const role = document.getElementById('inputRole').value;
+            const desc = document.getElementById('inputDesc').value;
+
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+
+            const grid = document.getElementById('leadsGrid');
+            const newCard = document.createElement('div');
+            newCard.className = "lead-card bg-furina-navy/60 border border-furina-gold/30 hover:border-furina-cyan rounded-xl p-6 relative transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-furina-royal";
+            newCard.setAttribute('data-status', 'pendiente');
+            newCard.setAttribute('data-name', name);
+
+            newCard.innerHTML = `
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-furina-royal border border-furina-gold flex items-center justify-center font-regal font-bold text-furina-gold">
+                            ${initials}
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">${name}</h3>
+                            <p class="text-xs text-furina-cyan">${role}</p>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-furina-gold/20 text-furina-gold border border-furina-gold/40">
+                        Pendiente
+                    </span>
+                </div>
+                <p class="text-xs text-furina-foam/70 mb-4 line-clamp-2">${desc}</p>
+                <div class="flex items-center justify-between pt-4 border-t border-furina-royal/50 text-xs text-furina-goldLight">
+                    <span><i class="fa-regular fa-clock mr-1 text-furina-cyan"></i> Reciente</span>
+                    <span class="font-regal text-furina-gold font-bold"><i class="fa-solid fa-sparkles"></i> Nuevo</span>
+                </div>
+            `;
+
+            grid.prepend(newCard);
+            closeModal();
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
