@@ -10,6 +10,28 @@ class Project(models.Model):
         return self.name
 
 
+class Task(models.Model):
+    STATUS_CHOICES = [
+        ("pending", "Pendiente"),
+        ("in_progress", "En progreso"),
+        ("done", "Completada"),
+    ]
+
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="tasks",
+    )
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    due_date = models.DateField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Nave(models.Model):
     nombre = models.CharField(max_length=100)
     tipo_nave = models.TextField(blank=True)
@@ -88,7 +110,7 @@ class Participacion(models.Model):
         on_delete=models.CASCADE
     )
     actividad = models.ForeignKey(
-        Actividad,  # <- Corregido a Actividad
+        Actividad, 
         on_delete=models.CASCADE
     )
     rol = models.CharField(max_length=50)

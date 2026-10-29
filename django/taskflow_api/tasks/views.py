@@ -1,6 +1,10 @@
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
+
+from tasks.forms import TaskForm
+from tasks.models import Project
+
+
 #1
 def home(request):
     """Vista de bienvenida de la app tasks."""
@@ -52,3 +56,29 @@ def my_first_template(request):
         "mensaje": "Organiza tus proyectos y tareas en un solo lugar",
     }
     return render(request, "tasks/my-firts-template.html", contexto)
+
+
+def lista(request):
+    contexto = {
+        "titulo": "TaskFlow",
+        "mensaje": "Organiza tus proyectos y tareas en un solo lugar",
+        "projects": Project.objects.order_by("-created_at"),
+    }
+    return render(request, "tasks/home.html", contexto)
+
+
+def task_create(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("tasks:task-list")
+    else:
+        form = TaskForm()
+
+    return render(request, "tasks/task_form.html", {"form": form, "modo": "crear"})
+
+
+def base_view(request):
+    """Vista para renderizar la plantilla base.html directamente"""
+    return render(request, "base.html")

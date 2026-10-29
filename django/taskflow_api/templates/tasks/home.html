@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}TaskFlow{% endblock %}
+
+{% block content %}
+<h1>{{ titulo }}</h1>
+<p>{{ mensaje }}</p>
+
+<h2>Proyectos Recientes</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha de Creación</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.description|default:"Sin descripción disponible." }}</td>
+                <td>{{ project.created_at|date:"d/m/Y" }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No hay proyectos registrados aún.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
