@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Editar libro{% else %}Crear libro{% endif %}</title>
+</head>
+<body>
+    <h1>Biblioteca</h1>
+    <h2>{% if form.instance.pk %}Editar libro{% else %}Registrar libro{% endif %}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>
+            <button type="submit">
+                Guardar libro
+            </button>
+            <a href="{% url 'libro_list' %}">
+                Cancelar
+            </a>
+        </p>
+    </form>
+</body>
+</html>
