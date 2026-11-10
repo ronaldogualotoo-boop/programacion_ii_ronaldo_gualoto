@@ -42,4 +42,9 @@ urlpatterns = [
         views.task_create,
         name="task-create"
     ),
+    path(
+        "projects/nuevo",
+        views.project_create,
+        name="project-create"
+    ),
 ]
