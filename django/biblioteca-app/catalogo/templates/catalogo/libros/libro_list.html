@@ -1,38 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Libros</title>
-</head>
-<body>
-    <h1>Lista de Libros</h1>
-    {% if messages %}
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de libros</title>
+    </head>
+    <body>
+        <h1>Listado de libros</h1>
+        {% if messages %}
         <ul>
             {% for message in messages %}
-                <li>{{ message }}</li>
+            <li>{{ message }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
-    <button>
-    <a href="{% url 'create_libro' %}">Crear Nuevo Libro</a>
-</button>
-    <table border="1">        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Fecha de Publicación</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for libro in libros %}
-            <tr>
-                <td>{{ libro.titulo }}</td>
-                <td>{{ libro.autor }}</td>
-                <td>{{ libro.fecha_publicacion }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
+        {% endif %}
+
+        <button><a href="{% url 'create_libro' %}">
+            Crear libro
+        </a></button>
+        <button><a href="{% url 'home' %}">
+            Volver al inicio
+        </a></button>
+        <h2>Buscar Libros</h2>
+        <form method="GET">
+            <p>
+                <label for="pista">
+                    Buscar por título, autor o categoría:
+                </label>
+                <input
+                type="text"
+                id="pista"
+                name="pista"
+                value="{{ pista }}">
+            </p>
+            <p>
+                <label for="categoria">
+                    Filtrar por categoría:
+                </label>
+                <select id="categoria" name="categoria">
+                    <option value="">Todas las categorias</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_id %}selected{% endif %}>
+                            {{ categoria.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </p>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <button>
+            <a href="{% url 'categoria_list' %}">
+                Ir a Categorías
+            </a>
+        </button>
+        <button>
+            <a href="{% url 'autor_list' %}">
+                Ir a Autores
+            </a>
+        </button>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Fecha de publicación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for libro in libros %}
+                    <tr>
+                        <td>{{ libro.titulo }}</td>
+                        <td>
+                            {% for autor in libro.autores.all %}
+                                {{ autor.nombre }} {{ autor.apellido }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Sin autor
+                            {% endfor %}
+                        </td>
+                        <td>{{ libro.fecha_publicacion }}</td>
+                        <td>
+                            <a href="{% url 'update_libro' libro.pk %}">Editar</a>
+                            {% if perms.catalogo.delete_libro %}
+                                <a href="{% url 'delete_libro' libro.pk %}">Eliminar</a>
+                            {% else %}
+                                <button type="button" disabled aria-disabled="true">Eliminar (sin permiso)</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No hay libros disponibles.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">Total de libros: {{ libros|length }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        </body>
 </html>

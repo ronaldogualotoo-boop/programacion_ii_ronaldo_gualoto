@@ -2,19 +2,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>{% if form.instance.pk %}Editar libro{% else %}Crear libro{% endif %}</title>
+    <title>{% if form.instance.pk %}Editar categoría{% else %}Registrar categoría{% endif %}</title>
 </head>
 <body>
     <h1>Biblioteca</h1>
-    <h2>{% if form.instance.pk %}Editar libro{% else %}Registrar libro{% endif %}</h2>
+    <h2>{% if form.instance.pk %}Editar categoría{% else %}Registrar categoría{% endif %}</h2>
+    <p>
+        <a href="{% url 'categoria_list' %}">Volver a categorías</a> |
+        <a href="{% url 'home' %}">Ir al inicio</a>
+    </p>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <p>
             <button type="submit">
-                Guardar libro
+                Guardar categoría
             </button>
-            <a href="{% url 'libro_list' %}">
+            <a href="{% url 'categoria_list' %}">
                 Cancelar
             </a>
         </p>

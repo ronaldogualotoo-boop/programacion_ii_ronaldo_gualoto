@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listado de autores</title>
+    <style>
+        .boton-gris {
+            display: inline-block;
+            margin: 0 3px 4px 0;
+            padding: 5px 8px;
+            border: 1px solid #999;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+            color: #222;
+            text-decoration: none;
+        }
+
+        .boton-gris:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Biblioteca</h1>
+        <h2>Listado de autores</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <p>
+            <a class="boton-gris" href="{% url 'autor_create' %}">Nuevo autor</a>
+            <a class="boton-gris" href="{% url 'home' %}">Volver al inicio</a>
+            <a class="boton-gris" href="{% url 'libro_list' %}">Ir a libros</a>
+            <a class="boton-gris" href="{% url 'categoria_list' %}">Ir a categorías</a>
+        </p>
+
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Nacionalidad</th>
+                    <th>Libros</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for autor in autores %}
+                    <tr>
+                        <td>{{ autor.id }}</td>
+                        <td>{{ autor.nombre }}</td>
+                        <td>{{ autor.apellido }}</td>
+                        <td>{{ autor.nacionalidad|default:"—" }}</td>
+                        <td>
+                            {% for libro in autor.libros.all %}
+                                {{ libro.titulo }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Sin libros asociados
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{% url 'autor_update' autor.pk %}">Editar</a>
+                            {% if perms.catalogo.delete_autor %}
+                                <a href="{% url 'autor_delete' autor.pk %}">Eliminar</a>
+                            {% else %}
+                                <button type="button" disabled aria-disabled="true">
+                                    Eliminar (sin permiso)
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">No existen autores registrados.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
