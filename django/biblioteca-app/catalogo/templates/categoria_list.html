@@ -10,6 +10,11 @@
         <h1>Biblioteca</h1>
         <h2>Categorías</h2>
 
+        <nav>
+            <a href="{% url 'libro_list' %}">Volver a libros</a> |
+            <a href="{% url 'home' %}">Ir al inicio</a>
+        </nav>
+
         {% if messages %}
             {% for message in messages %}
                 <p>{{ message }}</p>

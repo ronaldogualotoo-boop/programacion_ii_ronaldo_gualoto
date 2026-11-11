@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de categorías</title>
+</head>
+
+<body>
+    <h1>Biblioteca</h1>
+    <h2>Listado de categorías</h2>
+    {% if messages %}
+    {% for mensaje in messages %}
+    <p>{{ mensaje }}</p>
+    {% endfor %}
+    {% endif %}
+    <p>
+        <button>
+            <a href="{% url 'categoria_create' %}">
+                Nueva categoría
+            </a>
+        </button>
+
+        <button>
+            <a href="{% url 'home' %}">
+                Volver al inicio
+            </a>
+        </button>
+        <button>
+            <a href="{% url 'libro_list' %}">
+                Ir a Libros
+            </a>
+        </button>
+    </p>
+
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.id }}</td>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.descripcion }}</td>
+                <td>
+                    <a href="{% url 'categoria_update' categoria.id %}">Editar</a>
+                    {% if perms.catalogo.delete_categoria %}
+                        <a href="{% url 'categoria_delete' categoria.id %}">Eliminar</a>
+                    {% else %}
+                        <button type="button" disabled aria-disabled="true">Eliminar (sin permiso)</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">
+                    No existen categorías registradas.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
