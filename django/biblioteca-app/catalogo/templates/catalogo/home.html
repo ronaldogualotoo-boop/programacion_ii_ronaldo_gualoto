@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Inicio</h1>
+    <p>Bienvenido Sr(a) a la aplicación de gestión de libros.</p>
+    <p>Desde aquí puedes gestionar los libros disponibles en la biblioteca.</p>
+    <h2>Menú Principal</h2>
+    <ul>
+        <li><a href="{% url 'libro_list' %}">Lista de Libros</a></li>
+        <li><a href="{% url 'categoria_list' %}">Lista de Categorías</a></li>
+    </ul>
+
+    <br>
+
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit">Cerrar Sesión</button>
+    </form>
+</body>
+</html>

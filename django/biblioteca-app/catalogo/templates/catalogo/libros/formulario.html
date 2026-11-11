@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Libro</title>
+    <title>{% if form.instance.pk %}Editar libro{% else %}Crear libro{% endif %}</title>
 </head>
 <body>
-    <h1>Crear Libro</h1>
+    <h1>{% if form.instance.pk %}Editar libro{% else %}Crear libro{% endif %}</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        <button type="submit">Guardar libro</button>
+        <a href="{% url 'libro_list' %}">Cancelar</a>
     </form>
 </body>
 </html>
-```[cite: 2]
