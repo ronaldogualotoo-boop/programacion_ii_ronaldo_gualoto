@@ -1,7 +1,18 @@
+<<<<<<< HEAD
+from datetime import timedelta
+
+from django.contrib.auth.models import Permission, User
+from django.test import TestCase
+from django.urls import reverse
+from django.utils import timezone
+
+from catalogo.models.autor import Autor
+=======
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
 
+>>>>>>> main
 from catalogo.models.categoria import Categoria
 from catalogo.models.libro import Libro
 
@@ -93,13 +104,23 @@ class LoginFlowTests(TestCase):
 class DeleteFlowTests(TestCase):
     def setUp(self):
         self.categoria = Categoria.objects.create(nombre='Novela')
+<<<<<<< HEAD
+        self.autor = Autor.objects.create(nombre='Autora', apellido='Prueba')
+        self.libro = Libro.objects.create(
+            titulo='Libro de prueba',
+=======
         self.libro = Libro.objects.create(
             titulo='Libro de prueba',
             autor='Autora',
+>>>>>>> main
             fecha_publicacion='2020-01-01',
             categoria=self.categoria,
             isbn='9780000000001',
         )
+<<<<<<< HEAD
+        self.libro.autores.add(self.autor)
+=======
+>>>>>>> main
         self.book_delete_user = User.objects.create_user(
             username='bibliotecario-libros',
             password='clave-segura-123',
@@ -175,13 +196,23 @@ class DeleteFlowTests(TestCase):
 class EditFlowTests(TestCase):
     def setUp(self):
         self.categoria = Categoria.objects.create(nombre='Novela')
+<<<<<<< HEAD
+        self.autor = Autor.objects.create(nombre='Autora', apellido='Prueba')
+        self.libro = Libro.objects.create(
+            titulo='Libro de prueba',
+=======
         self.libro = Libro.objects.create(
             titulo='Libro de prueba',
             autor='Autora',
+>>>>>>> main
             fecha_publicacion='2020-01-01',
             categoria=self.categoria,
             isbn='9780000000001',
         )
+<<<<<<< HEAD
+        self.libro.autores.add(self.autor)
+=======
+>>>>>>> main
         self.client.force_login(
             User.objects.create_user(
                 username='editor-libros',
@@ -194,7 +225,11 @@ class EditFlowTests(TestCase):
             reverse('create_libro'),
             {
                 'titulo': 'Libro nuevo',
+<<<<<<< HEAD
+                'autores': [self.autor.pk],
+=======
                 'autor': 'Autor nuevo',
+>>>>>>> main
                 'fecha_publicacion': '2024-01-01',
                 'categoria': self.categoria.pk,
                 'isbn': '9780000000002',
@@ -204,6 +239,40 @@ class EditFlowTests(TestCase):
         self.assertRedirects(response, reverse('libro_list'))
         self.assertTrue(Libro.objects.filter(titulo='Libro nuevo').exists())
 
+<<<<<<< HEAD
+    def test_book_form_shows_publication_date_and_isbn_help_text(self):
+        response = self.client.get(reverse('create_libro'))
+
+        self.assertContains(response, 'La fecha de publicación no puede ser futura.')
+        self.assertContains(response, 'El ISBN debe contener 13 dígitos.')
+
+    def test_book_create_rejects_future_publication_date_and_invalid_isbn(self):
+        response = self.client.post(
+            reverse('create_libro'),
+            {
+                'titulo': 'Libro inválido',
+                'autores': [self.autor.pk],
+                'fecha_publicacion': (timezone.localdate() + timedelta(days=1)).isoformat(),
+                'categoria': self.categoria.pk,
+                'isbn': '123',
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response.context['form'],
+            'fecha_publicacion',
+            'La fecha de publicación no puede ser en el futuro.',
+        )
+        self.assertFormError(
+            response.context['form'],
+            'isbn',
+            'El ISBN debe tener 13 dígitos numéricos.',
+        )
+        self.assertFalse(Libro.objects.filter(titulo='Libro inválido').exists())
+
+=======
+>>>>>>> main
     def test_book_list_renders_when_authenticated(self):
         response = self.client.get(reverse('libro_list'))
 
@@ -217,13 +286,23 @@ class EditFlowTests(TestCase):
 
     def test_book_list_filters_by_search_and_category(self):
         other_category = Categoria.objects.create(nombre='Poesía')
+<<<<<<< HEAD
+        other_author = Autor.objects.create(nombre='Otro', apellido='Autor')
+        other_book = Libro.objects.create(
+            titulo='Libro de prueba alternativo',
+=======
         other_book = Libro.objects.create(
             titulo='Libro de prueba alternativo',
             autor='Otro autor',
+>>>>>>> main
             fecha_publicacion='2021-01-01',
             categoria=other_category,
             isbn='9780000000002',
         )
+<<<<<<< HEAD
+        other_book.autores.add(other_author)
+=======
+>>>>>>> main
 
         response = self.client.get(
             reverse('libro_list'),
@@ -245,7 +324,11 @@ class EditFlowTests(TestCase):
             url,
             {
                 'titulo': 'Libro editado',
+<<<<<<< HEAD
+                'autores': [self.autor.pk],
+=======
                 'autor': self.libro.autor,
+>>>>>>> main
                 'fecha_publicacion': '2020-01-01',
                 'categoria': self.categoria.pk,
                 'isbn': self.libro.isbn,
@@ -273,3 +356,76 @@ class EditFlowTests(TestCase):
         self.assertRedirects(response, reverse('categoria_list'))
         self.categoria.refresh_from_db()
         self.assertEqual(self.categoria.nombre, 'Categoría editada')
+<<<<<<< HEAD
+
+
+class AutorFlowTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='editor-autores',
+            password='clave-segura-123',
+        )
+        self.client.force_login(self.user)
+
+    def test_author_create_and_list(self):
+        response = self.client.post(
+            reverse('autor_create'),
+            {
+                'nombre': 'Gabriel',
+                'apellido': 'García Márquez',
+                'nacionalidad': 'Colombiana',
+            },
+        )
+
+        self.assertRedirects(response, reverse('autor_list'))
+        autor = Autor.objects.get(nombre='Gabriel')
+
+        response = self.client.get(reverse('autor_list'))
+        self.assertTemplateUsed(response, 'catalogo/autores/autor_list.html')
+        self.assertContains(response, autor.nombre)
+        self.assertContains(response, autor.apellido)
+        self.assertContains(response, 'Nuevo autor')
+
+    def test_author_edit_updates_author(self):
+        autor = Autor.objects.create(
+            nombre='Gabriel',
+            apellido='García Márquez',
+            nacionalidad='Colombiana',
+        )
+
+        response = self.client.post(
+            reverse('autor_update', args=[autor.pk]),
+            {
+                'nombre': 'Gabriel José',
+                'apellido': 'García Márquez',
+                'nacionalidad': 'Colombiana',
+            },
+        )
+
+        self.assertRedirects(response, reverse('autor_list'))
+        autor.refresh_from_db()
+        self.assertEqual(autor.nombre, 'Gabriel José')
+
+    def test_author_delete_requires_permission(self):
+        autor = Autor.objects.create(nombre='Autor', apellido='De prueba')
+        url = reverse('autor_delete', args=[autor.pk])
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(Autor.objects.filter(pk=autor.pk).exists())
+
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label='catalogo',
+                codename='delete_autor',
+            )
+        )
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, autor.nombre)
+
+        response = self.client.post(url)
+        self.assertRedirects(response, reverse('autor_list'))
+        self.assertFalse(Autor.objects.filter(pk=autor.pk).exists())
+=======
+>>>>>>> main

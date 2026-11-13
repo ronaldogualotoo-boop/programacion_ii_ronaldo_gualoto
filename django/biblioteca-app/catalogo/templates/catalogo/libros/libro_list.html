@@ -54,6 +54,14 @@
                 Ir a Categorías
             </a>
         </button>
+<<<<<<< HEAD
+        <button>
+            <a href="{% url 'autor_list' %}">
+                Ir a Autores
+            </a>
+        </button>
+=======
+>>>>>>> main
         <table border="1">
             <thead>
                 <tr>
@@ -67,7 +75,17 @@
                 {% for libro in libros %}
                     <tr>
                         <td>{{ libro.titulo }}</td>
+<<<<<<< HEAD
+                        <td>
+                            {% for autor in libro.autores.all %}
+                                {{ autor.nombre }} {{ autor.apellido }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                Sin autor
+                            {% endfor %}
+                        </td>
+=======
                         <td>{{ libro.autor }}</td>
+>>>>>>> main
                         <td>{{ libro.fecha_publicacion }}</td>
                         <td>
                             <a href="{% url 'update_libro' libro.pk %}">Editar</a>

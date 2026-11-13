@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if form.instance.pk %}Editar autor{% else %}Registrar autor{% endif %}</title>
+</head>
+<body>
+    <main>
+        <h1>{% if form.instance.pk %}Editar autor{% else %}Registrar autor{% endif %}</h1>
+        <p><a href="{% url 'autor_list' %}">Volver a autores</a></p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar autor</button>
+            <a href="{% url 'autor_list' %}">Cancelar</a>
+        </form>
+    </main>
+</body>
+</html>

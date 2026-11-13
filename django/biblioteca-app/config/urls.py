@@ -8,5 +8,9 @@ urlpatterns = [
     path('inicio/', include('catalogo.urls.home_urls')),
     path('catalogo/', include('catalogo.urls.categoria_urls')),
     path('catalogo/', include('catalogo.urls.libro_urls')),
+<<<<<<< HEAD
+    path('catalogo/', include('catalogo.urls.autor_urls')),
+=======
+>>>>>>> main
     path('cuentas/', include('catalogo.urls.authentication_urls')),
 ]
