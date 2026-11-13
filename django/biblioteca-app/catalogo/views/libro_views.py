@@ -10,15 +10,25 @@ from catalogo.models.libro import Libro
 def libro_list(request):
     pista = request.GET.get('pista', '').strip()
     categoria_id = request.GET.get('categoria', '')
+<<<<<<< HEAD
     libros = Libro.objects.prefetch_related('autores')
+=======
+    libros = Libro.objects.all()
+>>>>>>> main
 
     if pista:
         libros = libros.filter(
             Q(titulo__icontains=pista)
+<<<<<<< HEAD
             | Q(autores__nombre__icontains=pista)
             | Q(autores__apellido__icontains=pista)
             | Q(categoria__nombre__icontains=pista)
         ).distinct()
+=======
+            | Q(autor__icontains=pista)
+            | Q(categoria__nombre__icontains=pista)
+        )
+>>>>>>> main
 
     if categoria_id.isdigit():
         libros = libros.filter(categoria_id=categoria_id)
